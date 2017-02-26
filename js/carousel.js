@@ -81,7 +81,7 @@ window.onload = function () {
         };
 
         var placeImage = function (img) {
-            cAnimator.init(cRealImageHolder,img)
+            cAnimator.init(cRealImageHolder,img,'fancy2');
         };
 
         var onclickPopulateRealImage = function (element) {
