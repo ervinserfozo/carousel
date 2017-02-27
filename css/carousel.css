@@ -10,6 +10,7 @@
 }
 
 .cRealImageHolder img{
+    border-radius: 10px 10px 0px 0px;
     position: absolute;
     -webkit-transition: all 1s ease-in-out;
     -moz-transition: all 1s ease-in-out;

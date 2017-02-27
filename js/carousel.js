@@ -28,7 +28,6 @@ window.onload = function () {
                 throw 'Collector class must be set.';
             }
 
-
             getGalleryElements();
             placeGalleryElements();
             imageUrls = cCollector.collectImages();
@@ -60,7 +59,6 @@ window.onload = function () {
             document.body.appendChild(cGalleryHolder);
 
         };
-
 
         var placeFirstImage = function () {
             var src = imageUrls[0];
@@ -147,7 +145,6 @@ window.onload = function () {
             var realImageHolder = document.createElement("div");
             realImageHolder.setAttribute('class','cRealImageHolder');
             realImageHolder.style.position = 'relative';
-            realImageHolder.style.padding = '15px 15px 0px 15px';
 
             return realImageHolder;
         };
@@ -156,7 +153,7 @@ window.onload = function () {
 
             var img = document.createElement("img");
             img.setAttribute('src', src);
-            img.style.width ='95%';
+            img.style.width ='100%';
 
             return img;
         };
@@ -232,7 +229,6 @@ window.onload = function () {
                         break;
                 }
             };
-
         };
 
         var standard = function () {
@@ -249,14 +245,12 @@ window.onload = function () {
 
             aImageHolder.appendChild(aImg);
 
-            setHolderHeight(aImg,currentImage[0]);
+            setHolderHeight(aImg);
 
             aImg.classList.remove('new');
             aImg.classList.add('current');
 
             removeElement();
-
-
         };
 
         var fancy = function () {
@@ -266,26 +260,19 @@ window.onload = function () {
             aImg.classList.add('new');
             aImg.classList.add('fancy');
 
-
-
             if(0!=currentImage.length){
                 currentImage[0].classList.remove('new');
                 currentImage[0].classList.remove('top');
                 currentImage[0].classList.add('bottom');
-
             }
 
             aImageHolder.appendChild(aImg);
-            console.log(aImg.height);
-            setHolderHeight(aImg,currentImage[0]);
-
-
+            setHolderHeight(aImg);
 
             aImg.classList.remove('new');
             aImg.classList.add('top');
 
             removeElement();
-
         };
 
         var fancy2 = function () {
@@ -303,57 +290,44 @@ window.onload = function () {
             }
 
             aImageHolder.appendChild(aImg);
-            console.log(aImg.height);
-            setHolderHeight(aImg,currentImage[0]);
-
-
+            
+            setHolderHeight(aImg);
 
             aImg.classList.remove('new');
             aImg.classList.add('top');
 
             removeElement();
-
-
         };
 
         var removeElement = function () {
+
             var currentImage = aImageHolder.children;
+
             setTimeout(function () {
-                console.log(currentImage);
+
                 if(currentImage.length>1) {
                     if (typeof currentImage[0].remove == 'function') {
-                        //If support  is found
                         currentImage[0].remove()
                     }
                     else {
-                        //If not
                         currentImage[0].outerHTML = '';
                     }
                 }
             },1000)
         };
 
-        var setHolderHeight = function (newImage,currentImage) {
+        var setHolderHeight = function (newImage) {
 
-            var currentHeight = 0;
             var newHeight = getHeight(newImage);
 
-            if(undefined!==currentImage) {
-                currentHeight = getHeight(currentImage);
-            }
-
-            aImageHolder.style.height = currentHeight+'px';
-
-
-                aImageHolder.style.height = newHeight+'px';
-
+            aImageHolder.style.height = newHeight+'px';
         };
 
         var getHeight = function (img) {
             var imgHeight = img.height;
             var imgWidth = img.width;
 
-            return imgHeight/(imgWidth/530);
+            return imgHeight/(imgWidth/560);
         };
         return {init:init};
     };
