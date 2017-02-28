@@ -356,20 +356,21 @@ window.onload = function () {
             }
             interval = setInterval(clockWiseInterval,10000);
         };
-        var clockWiseInterval = function () {
-
-                if(rThumbnails.length-1>=currentThumbnailIndex+1) {
-                    rThumbnails[currentThumbnailIndex + 1].click();
-                }
-                else {
-                    rThumbnails[0].click();
-                }
-        };
 
         var counterClockWise = function (thumbnails,currentThumbnail) {
             /** Todo implement counterClockWise **/
         };
-        
+
+        var clockWiseInterval = function () {
+
+            if(rThumbnails.length-1>=currentThumbnailIndex+1) {
+                rThumbnails[currentThumbnailIndex + 1].click();
+            }
+            else {
+                rThumbnails[0].click();
+            }
+        };
+
         return {clockWise:clockWise};
     };
 
