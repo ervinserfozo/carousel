@@ -346,7 +346,7 @@ window.onload = function () {
     };
 
     var Rotator = function () {
-
+        var intervalStatus = 'started';
         var currentThumbnailIndex = 0;
         var rThumbnails;
         var interval = setInterval(clockWiseInterval,10000);
@@ -369,11 +369,18 @@ window.onload = function () {
         };
 
         var stopRotation = function () {
-            clearInterval(interval);
+            if(intervalStatus=='started') {
+                clearInterval(interval);
+                intervalStatus = 'stopped';
+            }
         };
 
         var startRotator = function () {
-            interval = setInterval(clockWiseInterval,10000);
+            if(intervalStatus=='stopped') {
+                interval = setInterval(clockWiseInterval,10000);
+                intervalStatus = 'started';
+            }
+
         };
 
         var clockWiseInterval = function () {
