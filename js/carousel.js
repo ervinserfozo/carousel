@@ -110,8 +110,10 @@ window.onload = function () {
 
         var addEventListener = function (element) {
             element.addEventListener('click',onclickPopulateRealImage);
-            element.addEventListener('onmouseover',cRotator.stopRotation);
-            element.addEventListener('onmouseout',cRotator.startRotator);
+            element.addEventListener('mouseover',cRotator.stopRotation);
+            element.addEventListener('mouseout',cRotator.startRotator);
+            cRealImageHolder.addEventListener('mouseover',cRotator.stopRotation);
+            cRealImageHolder.addEventListener('mouseout',cRotator.startRotator);
         };
 
         return {
