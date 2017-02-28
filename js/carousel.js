@@ -173,7 +173,7 @@ window.onload = function () {
             cThumbnailHolder.setAttribute('class','cThumbnailHolder');
             cThumbnailHolder.style.position = 'relative';
             cThumbnailHolder.style.height = '30px';
-            cThumbnailHolder.style.padding = '5px 15px 15px 15px';
+            cThumbnailHolder.style.padding = '10px';
 
             return cThumbnailHolder;
         };

@@ -76,6 +76,10 @@
     height: 30px;
     opacity:0.50;
     cursor: pointer;
+
+}
+.cThumbnail:first-child{
+    border-radius: 0px 0px 0px 10px;
 }
 .cThumbnail:hover{
     opacity:1;
