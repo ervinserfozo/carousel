@@ -7,6 +7,7 @@ window.onload = function () {
         var cCreator;
         var cCollector;
         var cAnimator;
+        var cRotator;
         var cMode = 'standard';
         var cGalleryHolder;
         var cRealImageHolder;
@@ -47,6 +48,10 @@ window.onload = function () {
             cAnimator = animator;
         };
 
+        var setRotator = function (rotator) {
+            cRotator = rotator;
+        };
+
         var getGalleryElements = function () {
             cGalleryHolder = cCreator.createGalleryHolder();
             cRealImageHolder = cCreator.createRealImageHolder();
@@ -66,6 +71,7 @@ window.onload = function () {
             var img = cCreator.createRealImage(src);
             placeImage(img);
             setActiveThumbnail(thumbnail);
+            cRotator.clockWise(thumbnails,thumbnail)
 
         };
 
@@ -90,6 +96,8 @@ window.onload = function () {
 
             placeImage(img);
             setActiveThumbnail(thumbnail);
+
+            cRotator.clockWise(thumbnails,thumbnail);
         };
 
 
@@ -108,7 +116,8 @@ window.onload = function () {
             init:init,
             setCreator:setCreator,
             setCollector:setCollector,
-            setAnimator:setAnimator
+            setAnimator:setAnimator,
+            setRotator:setRotator
         };
     }();
 
@@ -290,7 +299,7 @@ window.onload = function () {
             }
 
             aImageHolder.appendChild(aImg);
-            
+
             setHolderHeight(aImg);
 
             aImg.classList.remove('new');
@@ -332,9 +341,39 @@ window.onload = function () {
         return {init:init};
     };
 
+    var Rotator = function () {
+        var currentThumbnailIndex = 0;
+        var rThumbnails;
+        var interval = setInterval(clockWiseInterval,5000);
+        var clockWise = function (thumbnails,currentThumbnail) {
+
+            clearInterval(interval);
+            rThumbnails = thumbnails;
+            if(currentThumbnail!=undefined) {
+                currentThumbnailIndex = thumbnails.indexOf(currentThumbnail);
+            }
+            interval = setInterval(clockWiseInterval,5000);
+        };
+        var clockWiseInterval = function () {
+
+                if(rThumbnails.length-1>=currentThumbnailIndex+1) {
+                    rThumbnails[currentThumbnailIndex + 1].click();
+                }
+                else {
+                    rThumbnails[0].click();
+                }
+
+        };
+        var counterClockWise = function (thumbnails,currentThumbnail) {
+            /** Todo implement counterClockWise **/
+        };
+        return {clockWise:clockWise};
+    };
+
     Carousel.setCreator(new Creator());
     Carousel.setCollector(new Collector());
     Carousel.setAnimator(new Animator());
+    Carousel.setRotator(new Rotator());
     Carousel.init();
 
 

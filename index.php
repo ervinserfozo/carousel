@@ -13,7 +13,7 @@
 
     <title>Document</title>
     <link rel="stylesheet" href="css/carousel.css">
-    <script src="js/carouselMini.js"></script>
+    <script src="js/carousel.js"></script>
 </head>
 <body>
     <div class="imageCollection">
