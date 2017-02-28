@@ -110,6 +110,8 @@ window.onload = function () {
 
         var addEventListener = function (element) {
             element.addEventListener('click',onclickPopulateRealImage);
+            element.addEventListener('onmouseover',cRotator.stopRotation);
+            element.addEventListener('onmouseout',cRotator.startRotator);
         };
 
         return {
@@ -349,16 +351,27 @@ window.onload = function () {
 
         var clockWise = function (thumbnails,currentThumbnail) {
 
-            clearInterval(interval);
+            stopRotation();
+
             rThumbnails = thumbnails;
             if(currentThumbnail!=undefined) {
                 currentThumbnailIndex = thumbnails.indexOf(currentThumbnail);
             }
-            interval = setInterval(clockWiseInterval,10000);
+
+            startRotator();
+
         };
 
         var counterClockWise = function (thumbnails,currentThumbnail) {
             /** Todo implement counterClockWise **/
+        };
+
+        var stopRotation = function () {
+            clearInterval(interval);
+        };
+
+        var startRotator = function () {
+            interval = setInterval(clockWiseInterval,10000);
         };
 
         var clockWiseInterval = function () {
@@ -371,7 +384,11 @@ window.onload = function () {
             }
         };
 
-        return {clockWise:clockWise};
+        return {
+            clockWise:clockWise,
+            startRotator:startRotator,
+            stopRotation:stopRotation
+        };
     };
 
     Carousel.setCreator(new Creator());
