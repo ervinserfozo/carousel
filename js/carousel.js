@@ -342,9 +342,11 @@ window.onload = function () {
     };
 
     var Rotator = function () {
+
         var currentThumbnailIndex = 0;
         var rThumbnails;
-        var interval = setInterval(clockWiseInterval,5000);
+        var interval = setInterval(clockWiseInterval,10000);
+
         var clockWise = function (thumbnails,currentThumbnail) {
 
             clearInterval(interval);
@@ -352,7 +354,7 @@ window.onload = function () {
             if(currentThumbnail!=undefined) {
                 currentThumbnailIndex = thumbnails.indexOf(currentThumbnail);
             }
-            interval = setInterval(clockWiseInterval,5000);
+            interval = setInterval(clockWiseInterval,10000);
         };
         var clockWiseInterval = function () {
 
@@ -362,11 +364,12 @@ window.onload = function () {
                 else {
                     rThumbnails[0].click();
                 }
-
         };
+
         var counterClockWise = function (thumbnails,currentThumbnail) {
             /** Todo implement counterClockWise **/
         };
+        
         return {clockWise:clockWise};
     };
 
