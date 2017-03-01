@@ -12,6 +12,7 @@ window.onload = function () {
         var cGalleryHolder;
         var cRealImageHolder;
         var cThumbnailHolder;
+        var cProgressBar;
         var imageUrls = [];
         var thumbnails = [];
 
@@ -56,10 +57,13 @@ window.onload = function () {
             cGalleryHolder = cCreator.createGalleryHolder();
             cRealImageHolder = cCreator.createRealImageHolder();
             cThumbnailHolder = cCreator.createThumbnailHolder();
+            cProgressBar = cCreator.createProgressBar()
         };
 
         var placeGalleryElements = function () {
             cGalleryHolder.appendChild(cRealImageHolder);
+            addEventListeners();
+            cGalleryHolder.appendChild(cProgressBar);
             cGalleryHolder.appendChild(cThumbnailHolder);
             document.body.appendChild(cGalleryHolder);
 
@@ -112,6 +116,10 @@ window.onload = function () {
             element.addEventListener('click',onclickPopulateRealImage);
             element.addEventListener('mouseover',cRotator.stopRotation);
             element.addEventListener('mouseout',cRotator.startRotator);
+        };
+
+        var addEventListeners = function () {
+
             cRealImageHolder.addEventListener('mouseover',cRotator.stopRotation);
             cRealImageHolder.addEventListener('mouseout',cRotator.startRotator);
         };
@@ -148,9 +156,24 @@ window.onload = function () {
             cGalleryBackground.style.backgroundColor = '#cac8c8';
             cGalleryBackground.style.borderRadius = '10px';
             cGalleryBackground.style.opacity = '.7';
-            cGalleryBackground.style.zIndex = 0;
+            cGalleryBackground.style.zIndex = -1;
 
             return cGalleryBackground;
+        };
+
+        var createProgressBar = function () {
+            var cProgressBar = document.createElement("div");
+            cProgressBar.setAttribute('class','cProgressBar');
+            cProgressBar.style.height = '2px';
+            cProgressBar.style.backgroundColor = '#0cb2ff';
+            document.addEventListener('intervalStart',function (){
+                cProgressBar.classList.add('intervalStart');
+
+            });
+            document.addEventListener('intervalStop',function (){
+                cProgressBar.classList.remove('intervalStart');
+            });
+            return cProgressBar;
         };
 
         var createRealImageHolder = function(){
@@ -196,6 +219,7 @@ window.onload = function () {
         return {
             createGalleryHolder:createGalleryHolder,
             createGalleryBackground:createGalleryBackground,
+            createProgressBar:createProgressBar,
             createRealImageHolder:createRealImageHolder,
             createRealImage:createRealImage,
             createThumbnailHolder:createThumbnailHolder,
@@ -369,16 +393,22 @@ window.onload = function () {
         };
 
         var stopRotation = function () {
+
             if(intervalStatus=='started') {
+
                 clearInterval(interval);
                 intervalStatus = 'stopped';
+                document.dispatchEvent(window['intervalStop']);
             }
         };
 
         var startRotator = function () {
+
             if(intervalStatus=='stopped') {
+                
                 interval = setInterval(clockWiseInterval,10000);
                 intervalStatus = 'started';
+                document.dispatchEvent(window['intervalStart']);
             }
 
         };
@@ -399,7 +429,16 @@ window.onload = function () {
             stopRotation:stopRotation
         };
     };
+    
+    var EventGenerator = function (eventName) {
 
+        window[eventName] = new CustomEvent(eventName);
+    };
+
+    EventGenerator('intervalStart');
+    EventGenerator('intervalStop');
+
+    
     Carousel.setCreator(new Creator());
     Carousel.setCollector(new Collector());
     Carousel.setAnimator(new Animator());

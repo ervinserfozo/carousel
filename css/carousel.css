@@ -69,6 +69,14 @@
     opacity:0;
 }
 
+.cProgressBar{
+    width: 0px;
+}
+.cProgressBar.intervalStart{
+    transition: all 10s linear;
+    width: 100%!important;
+}
+
 .cThumbnail{
     background-size: cover;
     float: left;
