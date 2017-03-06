@@ -89,7 +89,7 @@ window.onload = function () {
         };
 
         var placeImage = function (img) {
-            cAnimator.init(cRealImageHolder,img,'fancy2');
+            cAnimator.init(cProgressBar,cRealImageHolder,img,'fancy2');
         };
 
         var onclickPopulateRealImage = function (element) {
@@ -243,11 +243,12 @@ window.onload = function () {
     };
     
     var Animator = function () {
+        var aProgressBar;
         var aImageHolder;
         var aImg;
 
-        var init = function (imageHolder,img,mode) {
-
+        var init = function (progressBar,imageHolder,img,mode) {
+            aProgressBar = progressBar;
             aImageHolder = imageHolder;
             aImg = img;
             aImg.onload = function () {
@@ -274,6 +275,7 @@ window.onload = function () {
 
             aImg.classList.add('new');
             aImg.classList.add('standard');
+            aProgressBar.classList.remove('intervalStart');
 
             if(currentImage.length>0){
                 currentImage[0].classList.remove('current');
@@ -286,6 +288,7 @@ window.onload = function () {
 
             aImg.classList.remove('new');
             aImg.classList.add('current');
+            aProgressBar.classList.add('intervalStart');
 
             removeElement();
         };
@@ -296,6 +299,7 @@ window.onload = function () {
 
             aImg.classList.add('new');
             aImg.classList.add('fancy');
+            aProgressBar.classList.remove('intervalStart');
 
             if(0!=currentImage.length){
                 currentImage[0].classList.remove('new');
@@ -308,16 +312,18 @@ window.onload = function () {
 
             aImg.classList.remove('new');
             aImg.classList.add('top');
+            aProgressBar.classList.add('intervalStart');
 
             removeElement();
         };
 
         var fancy2 = function () {
 
+            var currentImage = aImageHolder.children;
+
             aImg.classList.add('new');
             aImg.classList.add('fancy2');
-
-            var currentImage = aImageHolder.children;
+            aProgressBar.classList.remove('intervalStart');
 
             if(0!=currentImage.length){
                 currentImage[0].classList.remove('new');
@@ -332,6 +338,7 @@ window.onload = function () {
 
             aImg.classList.remove('new');
             aImg.classList.add('top');
+            aProgressBar.classList.add('intervalStart');
 
             removeElement();
         };
@@ -385,7 +392,6 @@ window.onload = function () {
             }
 
             startRotator();
-
         };
 
         var counterClockWise = function (thumbnails,currentThumbnail) {
